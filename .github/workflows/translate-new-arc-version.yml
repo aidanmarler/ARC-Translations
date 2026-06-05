@@ -7,30 +7,38 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   
 jobs:
-  translate-new-arc-version:
+  translate:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v4
+      - name: Run translation
+        run: # translate ARC
 
-      # This should all change to run your code to translate arc
+  test:
+    runs-on: ubuntu-latest
+    needs: translate
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: # run tests on translation
 
-      # Then, tests should run
+  push:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Push to this repo
+        run: # push changes to ARC-Translations
 
-      # Then, push to github
-
-
-      #- name: Setup Node.js
-      #  uses: actions/setup-node@v4.4.0
-      #  with:
-      #    node-version: '24'
-      #    cache: 'npm'
-
-      #- name: Install dependencies
-      #  run: npm ci
-
-      #- name: Translate New Arc Version
-      #  run: npx tsx src/lib/actions/translate-new-arc-version.py
-
-    
+  ping-link:
+    runs-on: ubuntu-latest
+    needs: push
+    if: github.actor != 'aidanmarler' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Trigger LINK update
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.LINK_DISPATCH_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/aidanmarler/LINK/dispatches \
+            -d '{"event_type": "arc-translations-updated"}'
