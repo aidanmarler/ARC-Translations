@@ -24,14 +24,14 @@ jobs:
           pip install -r requirements-dev.txt;
 
       - name: Run translation
-        run: python helloworld.py
+        run: python code/helloworld.py
 
       - name: Get latest ARC version path
         id: get_version
-        run: python get_version_path.py
+        run: python tests/get_version_path.py
 
       - name: Run translation tests
-        run: pytest test_arc_translations.py --translations-path=${{ steps.get_version.outputs.path }}
+        run: pytest tests/test_arc_translations.py --translations-path=${{ steps.get_version.outputs.path }}
 
   push:
     runs-on: ubuntu-latest
