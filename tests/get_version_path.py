@@ -8,7 +8,7 @@ most_recent_version_str = all_versions[0] if all_versions else None
 
 print(f"path found: {most_recent_version_str}")
 
-path = "ARCH" + (most_recent_version_str[1:])
+path = "ARCH1.2.2" #+ (most_recent_version_str[1:])
 
 print(f"path found: {path}")
 
