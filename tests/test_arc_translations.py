@@ -5,12 +5,6 @@ import pandas as pd
 
 from bridge.arc.arc_api import ArcApiClient
 
-#get the versions from arch repository
-arc_client = ArcApiClient()
-all_versions = arc_client.get_arc_version_list()
-most_recent_version_str = all_versions[0] if all_versions else None
-path = "ARCH" + most_recent_version_str
-
 BASE_DIR = pathlib.Path(".")
 TEST_PATH = pathlib.Path(__file__)
 
