@@ -20,7 +20,9 @@ def translate_arch(file_path, columns_df, arch_dir_path_des, lang, prev_translat
 
     """
     filename = os.path.basename(file_path)
+    print("translate_arch filename: " + filename)
     arch_dir_path_des_file = os.path.join(arch_dir_path_des, lang[0]) + os.sep + filename
+    print("arch_dir_path_des_file: " + arch_dir_path_des_file)
     total_vars = 0
     total_vars_found_prev = 0
     if os.path.exists(arch_dir_path_des_file):
@@ -87,9 +89,9 @@ def translate_arch(file_path, columns_df, arch_dir_path_des, lang, prev_translat
     else:
         print("No previous translation directory found at "+str(arch_dir_path_prev)+".")
 
-    #print(f"prev english: {prev_map_eng['demog_birthknow']}")
-    #print(f"prev spanish: {prev_map['demog_birthknow']}")
-    #print(f"prev section: {prev_section}")   
+    print(f"prev english: {prev_map_eng['demog_birthknow']}")
+    print(f"prev spanish: {prev_map['demog_birthknow']}")
+    print(f"prev section: {prev_section}")   
     
     # Helper: translation function with safe fallback
     def do_translate(text):
@@ -116,24 +118,24 @@ def translate_arch(file_path, columns_df, arch_dir_path_des, lang, prev_translat
     for idx, row in df_final.iterrows():
         #ux=input("Quiere continuar con la siguiente?")##solo para pruebas
         var = str(row.get('Variable', '')).strip()
-        #print("Variable actual: "+var)
+        print("Variable actual: "+var)
         if not var:
             continue
 
         if prev_map.get(var) is not None:
-            #print("Variable found on previous translation: "+var)
+            print("Variable found on previous translation: "+var)
             prev_row = prev_map[var]
             total_vars_found_prev += 1
         else:
             prev_row = None
         
         if prev_map_eng.get(var) is not None:
-            #print("Variable found on previous english csv: "+var)
+            print("Variable found on previous english csv: "+var)
             prev_row_eng = prev_map_eng[var]
         else:
             prev_row_eng = None
         # Otherwise, translate the required columns for this row
-        #print("Variable a traducir: "+var+" porque 1) es nueva o sufrió cambios de contenido o 2) no hay traducción previa: ")
+        print("Variable a traducir: "+var+" porque 1) es nueva o sufrió cambios de contenido o 2) no hay traducción previa: ")
         for col in columns_df:
             cols_translated += 1
             original_text = row.get(col, '')
