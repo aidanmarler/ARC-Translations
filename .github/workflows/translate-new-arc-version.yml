@@ -32,7 +32,7 @@ jobs:
         run: python code/main.py --arc-version=${{ steps.get_version.outputs.version }}
 
       - name: Run translation tests
-        run: pytest tests/test_arc_translations.py --arc-version=${{ steps.get_version.outputs.version }}
+        run: pytest code/tests/test_arc_translations.py --arc-version=${{ steps.get_version.outputs.version }}
 
   push:
     runs-on: ubuntu-latest
