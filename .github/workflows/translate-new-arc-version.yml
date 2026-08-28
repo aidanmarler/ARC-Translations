@@ -29,10 +29,10 @@ jobs:
         run: python code/get_version_path.py
 
       - name: Translate most recent ARC
-        run: python code/main.py --arc-version=${{ steps.get_version.outputs.path }}
+        run: python code/main.py --arc-version=${{ steps.get_version.outputs.version }}
 
       - name: Run translation tests
-        run: pytest tests/test_arc_translations.py --arc-version=${{ steps.get_version.outputs.path }}
+        run: pytest tests/test_arc_translations.py --arc-version=${{ steps.get_version.outputs.version }}
 
   push:
     runs-on: ubuntu-latest
