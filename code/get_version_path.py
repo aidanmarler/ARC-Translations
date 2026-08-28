@@ -10,4 +10,4 @@ path = "ARCH" + (most_recent_version_str[1:])
 print(f"path found: {path}")
 
 with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-    f.write(f"--arc-version={most_recent_version_str}\n")
+    f.write(f"version={most_recent_version_str}\n")
