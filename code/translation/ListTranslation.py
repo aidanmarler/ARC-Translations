@@ -67,6 +67,7 @@ def translate_lists(dir_path, list_item, output_dir_path, lang, lists_translated
                     print("dev vacio")
                     return ''
                 s = str(text)
+                return (s)
                 if not s or len(s) >= 5000:
                     return s
                 try:

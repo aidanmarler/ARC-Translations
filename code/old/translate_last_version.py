@@ -48,7 +48,7 @@ from bridge.arc.arc_api import ArcApiClient
 root_arch_t = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 print("root_arch_t:"+root_arch_t)
 
-import archtranslation_lastversion, papertranslation, ListTranslation
+import translation.ArchTranslation as ArchTranslation, translation.PaperTranslation as PaperTranslation, translation.ListTranslation as ListTranslation
 
 #get the versions from arch repository
 arc_client = ArcApiClient()
@@ -151,9 +151,9 @@ for lang in langs:
     #ux=input("Quiere continuar con la siguiente?")##solo para pruebas
     
     # If this doesn't work, we can just comment it out for now
-    paper_t=papertranslation.translate_paper(paper_file_path_src, paper_col_translate, arch_dir_path_des, lang, None, None)
+    paper_t=PaperTranslation.translate_paper(paper_file_path_src, paper_col_translate, arch_dir_path_des, lang, None, None)
     print(f"PAPER_LIKE: Total vars found in previous translations vs total: {paper_t[0]}/{paper_t[1]}")
     #ux=input("Quiere continuar con la siguiente?")##solo para pruebas    
-    arch_t=archtranslation_lastversion.translate_arch(arch_file_path_src, arch_col_translate, arch_dir_path_des, lang, arc_translated_file, arch_dir_path_prev)    
+    arch_t=ArchTranslation.translate_arch(arch_file_path_src, arch_col_translate, arch_dir_path_des, lang, arc_translated_file, arch_dir_path_prev)    
     print(f"ARCH: Total vars found in previous translations vs total: {arch_t[0]}/{arch_t[1]}")
     print("--------")

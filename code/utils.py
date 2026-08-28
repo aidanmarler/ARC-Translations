@@ -9,6 +9,9 @@ is useful in several scripts.
 
 import os
 
+def version_to_path(arc_version):
+    return ("ARCH" + (arc_version[1:]))
+
 # Create directory if it doesn't already exist.
 def init_dir(path):
     if not os.path.exists(path):
