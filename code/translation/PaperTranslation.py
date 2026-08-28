@@ -42,7 +42,6 @@ def translate_paper(file_path, columns_df, arch_dir_path_des, lang, prev_transla
     # Helper: translation function with safe fallback
     def do_translate(text):
         s = str(text)
-        return (s)
         if pd.isna(text) or text is None:
             return ''
         if not s or len(s) >= 5000:
