@@ -98,21 +98,21 @@ def translate_arch(file_path, columns_df, arch_dir_path_des, lang, prev_translat
     items_total = 0
     items_changed = 0
     items_new = 0
-    items_cached = 0
+    #items_cached = 0
     items_reused = 0
-    items_failed = 0
+    #items_failed = 0
 
     # Helper: translation function with safe fallback
     def do_translate(text):
-        global items_failed
-        global items_cached
+        #global items_failed
+        #global items_cached
         s = str(text)
         if pd.isna(text) or text is None:
             return ''
         if not s or len(s) >= 5000:
             return s
         if s in translation_cache:
-            items_cached += 1
+            #items_cached += 1
             return translation_cache[s]
         try:
             result = GoogleTranslator(source='en', target=lang[1]).translate(text=s)
@@ -126,7 +126,7 @@ def translate_arch(file_path, columns_df, arch_dir_path_des, lang, prev_translat
                 translation_cache[s] = result
                 return result
             except Exception:
-                items_failed += 1
+                #items_failed += 1
                 # failed translator -> return original text
                 return s
 
@@ -212,9 +212,9 @@ def translate_arch(file_path, columns_df, arch_dir_path_des, lang, prev_translat
     print ("items_total", items_total)
     print ("items_new", items_new)
     print ("items_changed", items_changed)
-    print ("items_cached", items_cached)
+    #print ("items_cached", items_cached)
     print ("items_reused", items_reused)
-    print ("items_failed", items_failed)
+    #print ("items_failed", items_failed)
     print(str(translation_cache))
 
     return (total_vars_found_prev, total_vars)
