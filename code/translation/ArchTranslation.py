@@ -104,13 +104,15 @@ def translate_arch(file_path, columns_df, arch_dir_path_des, lang, prev_translat
 
     # Helper: translation function with safe fallback
     def do_translate(text):
+        global items_failed
+        global items_cached
         s = str(text)
         if pd.isna(text) or text is None:
             return ''
         if not s or len(s) >= 5000:
             return s
         if s in translation_cache:
-            #items_cached += 1
+            items_cached += 1
             return translation_cache[s]
         try:
             result = GoogleTranslator(source='en', target=lang[1]).translate(text=s)
